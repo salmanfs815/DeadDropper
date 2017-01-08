@@ -17,15 +17,21 @@
             android:layout_height="240dp" />
 
         <ScrollView
+            android:id="@+id/drop_list"
             android:layout_width="match_parent"
-            android:layout_height="346dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/map">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
         </ScrollView>
+
+        <Button
+            android:text="Add Deaddrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_deaddrop"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:onClick="addDeaddrop" />
 
     </RelativeLayout>
 
