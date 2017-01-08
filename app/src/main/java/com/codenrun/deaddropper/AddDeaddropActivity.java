@@ -12,6 +12,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,11 +43,14 @@ public class AddDeaddropActivity extends FragmentActivity
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
     private GoogleApiClient mGoogleApiClient;
     private Bitmap mBitmapToSave;
     private Location mLastLocation;
-    private String lat; // latitude
-    private String lon; // longitude
+    private String lat = ""; // latitude
+    private String lon = ""; // longitude
+    private String phoneNo;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +110,23 @@ public class AddDeaddropActivity extends FragmentActivity
                         }
                     }
                 });
+    }
+
+    protected void sendSMSMessage(View view) {
+        phoneNo = "6044419184"; //txtphoneNo.getText().toString();
+        message = "this is a test message sent from Dead Dropper."; //txtMessage.getText().toString();
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.SEND_SMS)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
     }
 
 
@@ -213,6 +236,18 @@ public class AddDeaddropActivity extends FragmentActivity
                     // functionality that depends on this permission.
                 }
                 return;
+            } case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
+                    Toast.makeText(getApplicationContext(), "Dead drop notification sent.",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
 
             // other 'case' lines to check for other

@@ -11,7 +11,7 @@
     tools:context="com.codenrun.deaddropper.AddDeaddropActivity">
 
     <TextView
-        android:text="Gmail address of Receiver"
+        android:text="Cell phone number of recipient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -44,6 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:id="@+id/button4"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="sendSMSMessage" />
 
 </RelativeLayout>
