@@ -2,6 +2,7 @@ package com.codenrun.deaddropper;
 
 import android.*;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -118,6 +119,7 @@ public class MapsActivity extends AppCompatActivity
     }
 
     public void addDeaddrop(View view) {
-
+        Intent intent = new Intent(this, AddDeaddropActivity.class);
+        startActivity(intent);
     }
 }
